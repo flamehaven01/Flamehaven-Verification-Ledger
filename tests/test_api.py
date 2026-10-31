@@ -12,6 +12,7 @@ Usage:
   python tests/test_api.py --save    # write results to tests/results.json (gitignored)
 """
 import argparse
+import hashlib
 import json
 import sys
 import time
@@ -227,6 +228,20 @@ def phase_local(t):
     t.check("runs.json:detail_urls_correct", not bad_urls,
             ok_msg="all detail_urls match", fail_msg=f"bad: {bad_urls[:3]}")
 
+    # NSRW: retained execution bytes, actual check count and exact scope.
+    raw = (ROOT / "eqa/toe-test-0061/verification_result.json").read_bytes()
+    record = json.loads(raw)
+    manifest = json.loads((ROOT / "eqa/toe-test-0061/manifest.json").read_text(encoding="utf-8"))
+    t.check("nsrw:retained_result_digest", hashlib.sha256(raw.replace(b"\r\n", b"\n")).hexdigest()
+            == manifest["result_sha256"])
+    records = record.get("records", [])
+    checks = [c for r in records for c in r.get("checks", [])]
+    t.check("nsrw:fifteen_containments", len(records) == 3 and len(checks) == 15
+            and all(c.get("status") == "PASS" and c.get("relation") == "contained" for c in checks))
+    t.check("nsrw:scope_and_operator", all(r.get("scope") == "CORE_SCALAR_ENCLOSURES_ONLY"
+            and r.get("independent_operator") is False and r.get("numerical_J_certificate") is False
+            for r in records))
+
 
 # ─── PHASE 2: live HTTP tests ───────────────────────────────────────────────
 
@@ -240,6 +255,7 @@ def phase_live(t):
         ("metrics/bav.json",       200),
         ("runs/bav-exp-034.json",  200),
         ("runs/toe-test-0056.json",200),
+        ("runs/toe-test-0061.json",200),
         ("runs/bsc-bioclaw.json",  200),
         ("runs/bsc-doctobert.json",200),
         ("runs/nonexistent.json",  404),
@@ -258,6 +274,9 @@ def phase_live(t):
             try:
                 parsed = json.loads(body)
                 t.ok(f"http:{path}:valid_json", f"{len(body)} bytes")
+                if path == "runs/toe-test-0061.json":
+                    t.check("http:nsrw:scalar_checks", parsed.get("key_metrics", {}).get("containment_passes") == 15
+                            and "not external reproduction or a numerical J certificate" in parsed.get("summary", ""))
             except json.JSONDecodeError:
                 t.fail(f"http:{path}:valid_json", "response is not valid JSON")
 

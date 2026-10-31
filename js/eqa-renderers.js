@@ -861,12 +861,12 @@ const EQA_RENDERERS = {
       const records = data.records || [];
       const checks = records.flatMap(r => r.checks || []);
       const passed = checks.filter(c => c.status === 'PASS').length;
-      return `<h2>NSRW: two arithmetic paths, one retained record</h2>
+      return `<div style="font-size:13px;line-height:1.75;color:var(--t3)"><h2 style="font-size:22px;color:var(--ts);margin:0 0 18px">NSRW: two arithmetic paths, one retained record</h2>
         <p style="font-size:24px;color:#10b981">${passed} / ${checks.length} containment checks PASS</p>
         <p>Fraction series and bounded remainders are cross-checked with mpmath interval arithmetic and direct exponential differences.</p>
-        <table><thead><tr><th>Fractional bits</th><th>Working bits</th><th>Checked quantities</th></tr></thead><tbody>${records.map(r => `<tr><td>${esc(r.fractional_bits)}</td><td>${esc(r.working_precision_bits)}</td><td>${esc((r.checks || []).map(c => c.quantity).join(', '))}</td></tr>`).join('')}</tbody></table>
+        <div style="overflow:auto;margin:20px 0"><table style="width:100%;border-collapse:collapse;text-align:left"><thead><tr><th style="padding:10px 16px 10px 0">Fractional bits</th><th style="padding:10px 16px 10px 0">Working bits</th><th style="padding:10px 0">Checked quantities</th></tr></thead><tbody>${records.map(r => `<tr style="border-top:1px solid var(--border)"><td style="padding:12px 16px 12px 0">${esc(r.fractional_bits)}</td><td style="padding:12px 16px 12px 0">${esc(r.working_precision_bits)}</td><td style="padding:12px 0">${esc((r.checks || []).map(c => c.quantity).join(', '))}</td></tr>`).join('')}</tbody></table></div>
         <p>Algorithm/backend separation; same operator. The result concerns core scalar enclosures.</p>
-        <p><a href="https://flamehaven01.github.io/NavierStokes-Research-Workbench/docs/bridge.html">Explore the mathematics-to-code bridge</a> · <a href="https://flamehaven01.github.io/NavierStokes-Research-Workbench/writing/">Research writing</a></p>`;
+        <p><a style="color:#a78bfa" href="https://flamehaven01.github.io/NavierStokes-Research-Workbench/docs/bridge.html">Explore the mathematics-to-code bridge</a> · <a style="color:#a78bfa" href="https://flamehaven01.github.io/NavierStokes-Research-Workbench/writing/">Research writing</a></p></div>`;
     },
     integrity: function(data, esc, insIntegrity, insChecks) {
       insIntegrity.innerHTML = '<h3>Portable LF input identities</h3>' + (data.records || []).map(r => `<p>${esc(r.fractional_bits)} bits<br><code style="overflow-wrap:anywhere">${esc(r.input_lf_sha256)}</code><br>Raw executor digest<br><code style="overflow-wrap:anywhere">${esc(r.input_sha256)}</code></p>`).join('');
