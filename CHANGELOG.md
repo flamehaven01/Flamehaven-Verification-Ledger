@@ -1,5 +1,11 @@
 # 📋 Changelog
 
+## NSRW scalar cross-check — 2026-11-01
+
+- Add EQA 0061: fifteen scalar-interval containment checks using a separate mpmath backend and direct exponential differences.
+- Connect the EQA card, inspector, public API, NSRW research library, canonical architecture and research writing.
+- Keep code and diagram ownership in NSRW; retain the referenced execution snapshot here. Same operator, no numerical J certificate or independent external reproduction implied.
+
 All notable changes to the **Flamehaven Verification Ledger** platform will be documented in this file.
 
 

@@ -856,6 +856,27 @@ function eqaInsights0059(data, esc) {
 }
 
 const EQA_RENDERERS = {
+  'toe-test-0061': {
+    insights: function(data, esc) {
+      const records = data.records || [];
+      const checks = records.flatMap(r => r.checks || []);
+      const passed = checks.filter(c => c.status === 'PASS').length;
+      return `<h2>NSRW: two arithmetic paths, one retained record</h2>
+        <p style="font-size:24px;color:#10b981">${passed} / ${checks.length} containment checks PASS</p>
+        <p>Fraction series and bounded remainders are cross-checked with mpmath interval arithmetic and direct exponential differences.</p>
+        <table><thead><tr><th>Fractional bits</th><th>Working bits</th><th>Checked quantities</th></tr></thead><tbody>${records.map(r => `<tr><td>${esc(r.fractional_bits)}</td><td>${esc(r.working_precision_bits)}</td><td>${esc((r.checks || []).map(c => c.quantity).join(', '))}</td></tr>`).join('')}</tbody></table>
+        <p>Algorithm/backend separation; same operator. The result concerns core scalar enclosures.</p>
+        <p><a href="https://flamehaven01.github.io/NavierStokes-Research-Workbench/docs/bridge.html">Explore the mathematics-to-code bridge</a> · <a href="https://flamehaven01.github.io/NavierStokes-Research-Workbench/writing/">Research writing</a></p>`;
+    },
+    integrity: function(data, esc, insIntegrity, insChecks) {
+      insIntegrity.innerHTML = '<h3>Portable LF input identities</h3>' + (data.records || []).map(r => `<p>${esc(r.fractional_bits)} bits<br><code style="overflow-wrap:anywhere">${esc(r.input_lf_sha256)}</code><br>Raw executor digest<br><code style="overflow-wrap:anywhere">${esc(r.input_sha256)}</code></p>`).join('');
+      insChecks.innerHTML = '<h3>Interval containment checks</h3>' + (data.records || []).map(r => `<p>${esc(r.fractional_bits)} fractional bits: ${(r.checks || []).map(c => esc(c.quantity) + ': ' + esc(c.status)).join(' · ')}</p>`).join('');
+    },
+    analysis: function(container, data, esc) {
+      container.innerHTML = '<h3>Arithmetic and execution</h3>' + (data.records || []).map(r => `<p>${esc(r.backend)} · ${esc(r.working_precision_bits)} working bits · ${esc(r.algorithm)}</p>`).join('') + '<p>The next research inputs are affine coefficient bounds, positive q and source-model admissibility. The numerical J certificate remains the next target.</p>';
+    }, charts: null,
+  },
+
   'toe-test-0060': {
     insights: eqaInsights0060, integrity: eqaIntegrity0060, analysis: eqaAnalysis0060, charts: null,
   },

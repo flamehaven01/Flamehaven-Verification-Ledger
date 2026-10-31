@@ -24,6 +24,7 @@ API_DIR = ROOT / "api" / "v1"
 BASE_URL = "https://flamehaven01.github.io/Flamehaven-Verification-Ledger"
 
 EXPECTED_IDS = [
+    "toe-test-0061",
     "toe-test-0060",
     "toe-test-0059", "toe-test-0058",
     "toe-test-0057", "toe-test-0056", "toe-test-0055",
@@ -114,7 +115,7 @@ def phase_local(t):
     t.ok("runs.json:loadable")
 
     count = runs_data.get("count", 0)
-    t.check("runs.json:count=18", count == 18, ok_msg=f"count={count}", fail_msg=f"count={count}")
+    t.check("runs.json:expected_count", count == len(EXPECTED_IDS), ok_msg=f"count={count}", fail_msg=f"count={count}")
 
     run_list = runs_data.get("runs", [])
     found_ids = {r["id"] for r in run_list}
@@ -167,6 +168,7 @@ def phase_local(t):
     # 1.5 spot-check individual run detail files
     print()
     checks = [
+        ("toe-test-0061", "verdict", "PASS"),
         ("toe-test-0060",        "verdict", "ABSTAIN"),
         ("bav-exp-034",          "verdict", "PASS"),
         ("bav-exp-033",          "verdict", "FAIL"),

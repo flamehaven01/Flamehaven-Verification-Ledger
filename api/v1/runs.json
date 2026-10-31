@@ -1,8 +1,18 @@
 {
   "schema": "flamehaven_api_v1_runs_index",
-  "generated_at_utc": "2026-08-03T14:08:11.984055+00:00",
-  "count": 18,
+  "generated_at_utc": "2026-10-31T17:04:19.347207+00:00",
+  "count": 19,
   "runs": [
+    {
+      "id": "toe-test-0061",
+      "lane": "EQA",
+      "title": "NSRW: fifteen scalar enclosures cross-checked with a second backend",
+      "verdict": "PASS",
+      "verdict_label": "Scalar containment PASS",
+      "date": "2026-11-01",
+      "brief": "Five retained scalar intervals at each of 128, 256 and 512 fractional bits contain the separately computed mpmath interval results.",
+      "detail_url": "https://flamehaven01.github.io/Flamehaven-Verification-Ledger/api/v1/runs/toe-test-0061.json"
+    },
     {
       "id": "toe-test-0060",
       "lane": "EQA",

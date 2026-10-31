@@ -4,6 +4,25 @@
 
 const EQA_REGISTRY = [
   {
+    id: 'toe-test-0061', kind: 'verification-run', class: 'verification-run',
+    deepLinks: ['nsrw', 'nsrw-core-scalars'],
+    inspectorTitle: 'EQA · NSRW CORE SCALARS: SECOND-BACKEND CHECK',
+    jsonPath: './eqa/toe-test-0061/verification_result.json',
+    reportPaths: ['./eqa/toe-test-0061/analysis_report.md'],
+    rawTabLabel: 'Verification report',
+    sidebar: { dot: '#10b981', label: 'eqa-test-0061', sub: 'nsrw-scalars' },
+    card: {
+      date: '2026-11-01',
+      title: 'NSRW: fifteen scalar enclosures checked through a second arithmetic path',
+      desc: 'Exact-rational mathematical computation meets mpmath interval arithmetic. Five core factors at three precisions are checked by direct exponential differences and complete interval containment.',
+      result: '15/15 PASS. Different arithmetic backend and calculation path; same operator. The next target is coefficient enclosure and a numerical moment certificate.',
+      repoUrl: 'https://github.com/flamehaven01/NavierStokes-Research-Workbench',
+      reportUrl: 'https://flamehaven01.github.io/NavierStokes-Research-Workbench/docs/crosscheck.html',
+      paperUrl: 'https://doi.org/10.5281/zenodo.23835112',
+    },
+  },
+
+  {
     id: 'toe-test-0060',
     kind: 'non-run',
     class: 'runtime-audit',

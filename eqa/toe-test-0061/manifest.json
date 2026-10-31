@@ -1,0 +1,77 @@
+{
+  "schema_id": "flamehaven_eqa_manifest.v1",
+  "canonical_run_id": "toe-test-0061",
+  "title": "NSRW core scalars: a second interval-arithmetic path",
+  "artifact_class": "scalar_interval_crosscheck",
+  "main_repo": "flamehaven01/NavierStokes-Research-Workbench",
+  "source_commit": "bd5da25381f59034bc9d0f2506a82d255790b30b",
+  "location": "eqa/toe-test-0061",
+  "result_sha256": "4d1b584f5ca89db5f3779808523d225c60b7c50f7c3d3df0d5df9825c0f98f4f",
+  "implementation_independence": "mpmath interval backend and direct exponential differences; no producer imports",
+  "operator_independence": false,
+  "numerical_J_certificate": false,
+  "external_anchors": [
+    {
+      "label": "Exact checker implementation",
+      "url": "https://github.com/flamehaven01/NavierStokes-Research-Workbench/blob/bd5da25381f59034bc9d0f2506a82d255790b30b/scripts/check-core-scalars-mpmath.py"
+    },
+    {
+      "label": "Retained NSRW report",
+      "url": "https://github.com/flamehaven01/NavierStokes-Research-Workbench/blob/bd5da25381f59034bc9d0f2506a82d255790b30b/examples/p2-core-scalars/mpmath-crosscheck.json"
+    },
+    {
+      "label": "Exact research architecture",
+      "url": "https://github.com/flamehaven01/NavierStokes-Research-Workbench/blob/bd5da25381f59034bc9d0f2506a82d255790b30b/docs/NSRW_MATH_TO_CODE_BRIDGE.md"
+    },
+    {
+      "label": "P01 mathematics",
+      "url": "https://doi.org/10.5281/zenodo.23835054"
+    },
+    {
+      "label": "P02 research software",
+      "url": "https://doi.org/10.5281/zenodo.23835112"
+    }
+  ],
+  "api_summary": {
+    "title": "NSRW: fifteen scalar enclosures cross-checked with a second backend",
+    "verdict": "PASS",
+    "verdict_label": "Scalar containment PASS",
+    "date": "2026-11-01",
+    "brief": "Five retained scalar intervals at each of 128, 256 and 512 fractional bits contain the separately computed mpmath interval results.",
+    "summary": "The exact-rational Fraction producer and mpmath 1.3.0 interval checker use different arithmetic implementations and expression forms. Fifteen containment checks pass. The same operator executed both paths; this is a second-backend scalar cross-check, not external reproduction or a numerical J certificate.",
+    "findings": [
+      "15/15 complete interval containments; no midpoint-only comparison",
+      "Working precision: 320, 448 and 704 bits for 128, 256 and 512 fractional-bit records",
+      "Direct exponential differences check the producer's factored expm1 quantities",
+      "Input raw SHA-256 and portable LF SHA-256 are recorded separately",
+      "Canonical executable code and architecture remain in NSRW; Ledger exposes the execution record"
+    ],
+    "metrics": {
+      "input_records": 3,
+      "containment_checks": 15,
+      "containment_passes": 15
+    },
+    "external_anchors": [
+      {
+        "label": "Exact checker implementation",
+        "url": "https://github.com/flamehaven01/NavierStokes-Research-Workbench/blob/bd5da25381f59034bc9d0f2506a82d255790b30b/scripts/check-core-scalars-mpmath.py"
+      },
+      {
+        "label": "Retained NSRW report",
+        "url": "https://github.com/flamehaven01/NavierStokes-Research-Workbench/blob/bd5da25381f59034bc9d0f2506a82d255790b30b/examples/p2-core-scalars/mpmath-crosscheck.json"
+      },
+      {
+        "label": "Exact research architecture",
+        "url": "https://github.com/flamehaven01/NavierStokes-Research-Workbench/blob/bd5da25381f59034bc9d0f2506a82d255790b30b/docs/NSRW_MATH_TO_CODE_BRIDGE.md"
+      },
+      {
+        "label": "P01 mathematics",
+        "url": "https://doi.org/10.5281/zenodo.23835054"
+      },
+      {
+        "label": "P02 research software",
+        "url": "https://doi.org/10.5281/zenodo.23835112"
+      }
+    ]
+  }
+}

@@ -13,6 +13,10 @@
 
 This repository serves as the official public ledger of all experimental verification runs, capability evaluations, and static safety scans executed by Flamehaven core systems. All artifacts contained here represent static, offline, deterministic results.
 
+## NSRW: mathematics to executable computation
+
+[NSRW scalar cross-check](https://flamehaven01.github.io/Flamehaven-Verification-Ledger/eqa.html#toe-test-0061) records fifteen interval-containment checks using a separate mpmath backend. The [research library](https://flamehaven01.github.io/NavierStokes-Research-Workbench/docs/) and [math-to-code architecture](https://flamehaven01.github.io/NavierStokes-Research-Workbench/docs/bridge.html) connect the formal moment results to the next numerical certificate. Canonical executable code remains in NSRW.
+
 ## Snapshot summary
 
 This repository is also the single source for the lightweight `ledger-summary.json` snapshot consumed by `flamehaven.space`.

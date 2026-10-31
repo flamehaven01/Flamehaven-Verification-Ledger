@@ -641,7 +641,7 @@ function renderInspectorData(runId, data, reportText = '') {
         });
       };
     }
-  } else if (reportText && (runId === 'toe-test-0060' || runId === 'toe-test-0054' || runId === 'toe-test-0053' || runId === 'toe-test-0052' || runId === 'toe-test-0055' || runId === 'toe-test-0056' || runId === 'toe-test-0057' || runId === 'toe-test-0058' || runId === 'toe-test-0059')) {
+  } else if (reportText && (runId === 'toe-test-0061' || runId === 'toe-test-0060' || runId === 'toe-test-0054' || runId === 'toe-test-0053' || runId === 'toe-test-0052' || runId === 'toe-test-0055' || runId === 'toe-test-0056' || runId === 'toe-test-0057' || runId === 'toe-test-0058' || runId === 'toe-test-0059')) {
     const reportTitle = runId === 'toe-test-0054'
       ? '📄 Governance Gate Report (TOE-TEST-0054)'
       : runId === 'toe-test-0053'
@@ -676,7 +676,7 @@ function renderInspectorData(runId, data, reportText = '') {
   const copyBtn = document.getElementById(copyButtonId);
   if (copyBtn) {
     copyBtn.onclick = function() {
-      const isMarkdownReport = reportText && (runId === 'toe-test-0060' || runId === 'toe-test-0054' || runId === 'toe-test-0053' || runId === 'toe-test-0052' || runId === 'toe-test-0055' || runId === 'toe-test-0056' || runId === 'toe-test-0057' || runId === 'toe-test-0058' || runId === 'toe-test-0059');
+      const isMarkdownReport = reportText && (runId === 'toe-test-0061' || runId === 'toe-test-0060' || runId === 'toe-test-0054' || runId === 'toe-test-0053' || runId === 'toe-test-0052' || runId === 'toe-test-0055' || runId === 'toe-test-0056' || runId === 'toe-test-0057' || runId === 'toe-test-0058' || runId === 'toe-test-0059');
       const prefersJson = (runId === 'toe-test-0054' || runId === 'toe-test-0052' || runId === 'toe-test-0053');
       const copyVal = (isMarkdownReport && !prefersJson) ? reportText : rawContent;
       navigator.clipboard.writeText(copyVal).then(() => {
