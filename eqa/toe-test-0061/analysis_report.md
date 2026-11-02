@@ -55,3 +55,22 @@ changes the existing named-proposition receipts.
 NSRW owns the executable checker and the single architecture map. This EQA
 entry and its API expose the observed cross-check result. Both sites remain
 usable without a runtime dependency on the other site's API.
+
+## Reading the arithmetic analysis
+
+A containment PASS means that the entire checker interval lies inside the
+producer's retained rational endpoints. It is stronger than matching midpoints.
+The input record's fractional precision b specifies an absolute dyadic grid;
+the second checker operates at b + 192 working bits.
+
+The two arithmetic paths use different expression forms. The Fraction producer
+uses factored expm1 with a direct positive series. The mpmath checker evaluates
+the original exponential differences for G and D, as well as the normalized
+endpoints and plateau width. At lambda = 10^-12 the support gap is about
+3.84e-18; its small size motivates explicit error control, not a claim of
+binary64 underflow.
+
+The local J margin involves K1, c1, I01 and the support weight gap. These scalar
+checks evaluate the gap and a conservative normalized moment factor. Affine
+coefficient bounds and admissible model inputs are the next calculation needed
+to turn those factors into a numerical J certificate.

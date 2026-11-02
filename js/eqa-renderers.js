@@ -873,7 +873,26 @@ const EQA_RENDERERS = {
       insChecks.innerHTML = '<h3>Interval containment checks</h3>' + (data.records || []).map(r => `<p>${esc(r.fractional_bits)} fractional bits: ${(r.checks || []).map(c => esc(c.quantity) + ': ' + esc(c.status)).join(' · ')}</p>`).join('');
     },
     analysis: function(container, data, esc) {
-      container.innerHTML = '<h3>Arithmetic and execution</h3>' + (data.records || []).map(r => `<p>${esc(r.backend)} · ${esc(r.working_precision_bits)} working bits · ${esc(r.algorithm)}</p>`).join('') + '<p>The next research inputs are affine coefficient bounds, positive q and source-model admissibility. The numerical J certificate remains the next target.</p>';
+      const records = data.records || [];
+      const checks = records.flatMap(r => r.checks || []);
+      const passCount = checks.filter(c => c.status === 'PASS' && c.relation === 'contained').length;
+      const rows = records.map(r => `<tr style="border-top:1px solid var(--border)"><td style="padding:12px 16px 12px 0">${esc(r.fractional_bits)}</td><td style="padding:12px 16px 12px 0">${esc(r.working_precision_bits)}</td><td style="padding:12px 0">${esc((r.checks || []).filter(c => c.status === 'PASS').length)} / ${esc((r.checks || []).length)} contained</td></tr>`).join('');
+      container.innerHTML = `<div style="font-size:13px;line-height:1.8;color:var(--t3)">
+        <h3 style="font-size:22px;color:var(--ts)">What the second arithmetic path establishes</h3>
+        <p style="font-size:23px;color:#10b981">${passCount} / ${checks.length} interval-containment checks pass</p>
+        <p>For each retained record, the complete mpmath-computed interval lies inside the producer’s rational endpoints. The check compares bounds, rather than just approximate midpoints.</p>
+        <h4 style="color:var(--ts);margin-top:28px">Two implementations of the same scalars</h4>
+        <p><strong>Producer:</strong> exact Fraction series with a bounded remainder, range reduction, factored expm1 and outward dyadic rounding.<br><strong>Checker:</strong> mpmath 1.3.0 interval exp and direct exponential differences, with no producer imports.</p>
+        <div style="background:rgba(255,255,255,.03);padding:16px;border:1px solid var(--border);overflow-wrap:anywhere"><code>λ = 10⁻¹²<br>w = (exp(−17/20) − exp(−23/20)) / 4<br>G = exp(−13 + 57λ/20) − exp(−13 + 23λ/20)<br>D = exp(1 − 2λ) − exp(1 − 4λ)</code></div>
+        <p>The normalized endpoints ell and v are also checked, giving five quantities per record. G is the support-weight gap; D is the main-coefficient denominator. Both are evaluated as differences here, providing a second path for the producer’s factored expressions.</p>
+        <h4 style="color:var(--ts);margin-top:28px">Precision and observed outcome</h4>
+        <div style="overflow:auto"><table style="width:100%;border-collapse:collapse;text-align:left"><thead><tr><th style="padding:10px 16px 10px 0">Record fractional bits</th><th style="padding:10px 16px 10px 0">Checker working bits</th><th style="padding:10px 0">Outcome</th></tr></thead><tbody>${rows}</tbody></table></div>
+        <p>The checker uses b + 192 working bits; b describes the retained absolute dyadic grid 2⁻ᵇ. These are separate precision settings. Working precision alone is not the acceptance criterion: the complete interval must be contained.</p>
+        <h4 style="color:var(--ts);margin-top:28px">Connection to the mathematical result</h4>
+        <p>The proved local margin has the form J ≥ K₁ c₁ I₀₁ Δ. The plateau width w supplies a conservative normalized moment factor; G evaluates Δ, while D supports the next coefficient calculation. The scalar checks make these building blocks inspectable through a second backend.</p>
+        <p>The next computation is affine coefficient enclosure and a positive q bound with source-model admissibility. These feed the numerical J certificate. This run checks core factors; the arithmetic implementation differs, while the operator is shared.</p>
+        <p><a style="color:#a78bfa" href="https://flamehaven01.github.io/NavierStokes-Research-Workbench/docs/crosscheck.html">Method and rerun command</a> · <a style="color:#a78bfa" href="https://flamehaven01.github.io/NavierStokes-Research-Workbench/docs/bridge.html">Mathematics-to-code architecture</a> · <a style="color:#a78bfa" href="./eqa/toe-test-0061/analysis_report.md">Retained analysis report</a></p>
+      </div>`;
     }, charts: null,
   },
 

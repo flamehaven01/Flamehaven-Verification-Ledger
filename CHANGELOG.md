@@ -1,5 +1,10 @@
 # 📋 Changelog
 
+## NSRW analysis presentation — 2026-11-02
+
+- Expand EQA 0061 Analysis with the actual containment criterion, distinct arithmetic paths, precision/outcome table and connection to the quantitative angular margin.
+- Preserve the result JSON, manifest, input hashes and recorded execution; this is a presentation/report update.
+
 ## NSRW scalar cross-check — 2026-11-01
 
 - Add EQA 0061: fifteen scalar-interval containment checks using a separate mpmath backend and direct exponential differences.
